@@ -1,10 +1,104 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><title>No.1 Insurance Platform</title>
+<html lang="en"><head><meta charset="UTF-8"><title>No.1 Insurance Platform in Malaysia</title>
+<link rel="stylesheet" href="styles.css">
+
 </head>
 
 
 <body>
-    <header class="top-nav">
+    <header class="navbar">
     <h1>BJAK</h1>
+
+    <div class="nav-right">
+    <div class="lang-wrapper">
+        <button class="lang-trigger" id="langTrigger" aria-haspopup="listbox" aria-expanded="false">
+          <!-- Globe SVG -->
+          <svg class="globe-icon" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10
+                     15.3 15.3 0 0 1-4 10
+                     15.3 15.3 0 0 1-4-10
+                     15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span class="lang-label" id="currentLang">EN</span>
+          <!-- Chevron SVG -->
+          <svg class="chevron" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="lang-dropdown" id="langDropdown" role="listbox">
+          <button class="lang-option active" data-lang="EN" role="option" aria-selected="true">
+            <span class="lang-code">EN</span>
+            <span class="lang-name">English</span>
+          </button>
+          <button class="lang-option" data-lang="BM" role="option" aria-selected="false">
+            <span class="lang-code">BM</span>
+            <span class="lang-name">Bahasa Melayu</span>
+          </button>
+          <button class="lang-option" data-lang="中文" role="option" aria-selected="false">
+            <span class="lang-code">中文</span>
+            <span class="lang-name">Mandarin</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Login Button -->
+      <button class="login-btn">Login</button>
+    </div>
+    </header>
+
+  
+  <!-- Page content placeholder -->
+  <main class="page-content">
+    <h1>Welcome to MyBrand</h1>
+    <p>This is a sample page to preview the navbar above.</p>
+  </main>
+
+  <script>
+    const trigger    = document.getElementById('langTrigger');
+    const dropdown   = document.getElementById('langDropdown');
+    const langLabel  = document.getElementById('currentLang');
+    const options    = dropdown.querySelectorAll('.lang-option');
+
+    // Toggle dropdown
+    trigger.addEventListener('click', () => {
+      const isOpen = dropdown.classList.toggle('open');
+      trigger.classList.toggle('open', isOpen);
+      trigger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Select a language
+    options.forEach(opt => {
+      opt.addEventListener('click', () => {
+        options.forEach(o => {
+          o.classList.remove('active');
+          o.setAttribute('aria-selected', 'false');
+        });
+        opt.classList.add('active');
+        opt.setAttribute('aria-selected', 'true');
+        langLabel.textContent = opt.dataset.lang;
+
+        // Close
+        dropdown.classList.remove('open');
+        trigger.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', e => {
+      if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+        trigger.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
     
 </body></html>
